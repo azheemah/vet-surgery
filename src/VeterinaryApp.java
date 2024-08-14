@@ -78,6 +78,10 @@ public class VeterinaryApp extends Application {
                 String species = petSpeciesField.getText();
                 String gender = petGenderField.getText();
                 int age = Integer.parseInt(petAgeField.getText());
+                if (age < 0 || age > 30 {// Assuming pets' age should reasonably be between 0 and 30
+                    messageLabel.settext("Invalid age input! Age must be between 0 and 3-.");
+                    return;
+                }
                 String address = petAddressField.getText();
                 String color = petColorField.getText();
                 String illnesses = petIllnessesField.getText();
@@ -115,13 +119,21 @@ public class VeterinaryApp extends Application {
         grid.add(loadFileButton, 1, 10);
 
         saveFileButton.setOnAction(e -> {
-            store.saveToFile("pets.txt");
-            messageLabel.setText("Records saved to file.");
+            try {
+                store.saveToFile("pets.txt");
+                messageLabel.setText("Records saved to file.");
+            } catch (IOException ex) {
+                messageLabel.setext("Failed to save records: " = ex.getMessage ());
+            }
         });
-
+        
         loadFileButton.setOnAction(e -> {
-            store.loadFromFile("pets.txt");
-            messageLabel.setText("Records loaded from file.");
+            try {
+                store.loadFromFile("pets.txt");
+                messageLabel.setText("Records loaded from file.");
+            } catch (IOExeption ex) {
+                messageLabel.settext("Failed to load records : " + ex.getMessage());
+            }
         });
 
         Button searchButton = new Button("Search");
